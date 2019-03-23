@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.miniapp.dao.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.miniapp.entity.Article" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="keywords" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="describle" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pic" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="click" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="catagory_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="content" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.miniapp.entity.Article" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="keywords" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="describle" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pic" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="click" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="catagory_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="content" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, keywords, describle, pic, click, time, catagory_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miniapp.entity.Article" >
+    insert into article (id, title, keywords, 
+      describle, pic, click, 
+      time, catagory_id, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
+      #{describle,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{click,jdbcType=INTEGER}, 
+      #{time,jdbcType=TIMESTAMP}, #{catagoryId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miniapp.entity.Article" >
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="keywords != null" >
+        keywords,
+      </if>
+      <if test="describle != null" >
+        describle,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="click != null" >
+        click,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="catagoryId != null" >
+        catagory_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="describle != null" >
+        #{describle,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="click != null" >
+        #{click,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="catagoryId != null" >
+        #{catagoryId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miniapp.entity.Article" >
+    update article
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="describle != null" >
+        describle = #{describle,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="click != null" >
+        click = #{click,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="catagoryId != null" >
+        catagory_id = #{catagoryId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miniapp.entity.Article" >
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      describle = #{describle,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
+      click = #{click,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      catagory_id = #{catagoryId,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miniapp.entity.Article" >
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      describle = #{describle,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
+      click = #{click,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      catagory_id = #{catagoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--查询所有的article-->
+  <select id="queryAll" resultMap="BaseResultMap">
+    select * from article order by id desc
+  </select>
+
+
+  <!--查询文章的总数-->
+  <select id="countAllNum" resultType="java.lang.Integer">
+      select count(*) from article
+  </select>
+
+  <select id="selectByWord" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    *
+    from article
+    where title LIKE CONCAT(CONCAT('%', #{word}), '%') OR content  LIKE CONCAT(CONCAT('%', #{word}), '%')
+  </select>
+
+  <select id="selectByYear" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from article where time regexp #{year};
+  </select>
+
+  <select id="selectArticleById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from article where catagory_id = #{id};
+  </select>
+</mapper>
